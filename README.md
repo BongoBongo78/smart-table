@@ -1,2 +1,1 @@
-# sp6-2_smart-table_starter
-https://github.com/BongoBongo78/smart-table.git
+[# sp6-2_smart-table_starter](https://github.com/BongoBongo78/smart-table.git)
