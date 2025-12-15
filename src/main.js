@@ -1,8 +1,6 @@
 import './fonts/ys-display/fonts.css'
 import './style.css'
 
-import {data as sourceData} from "./data/dataset_1.js";
-
 import {initData} from "./data.js";
 import {processFormData} from "./lib/utils.js";
 
@@ -11,12 +9,9 @@ import {initPagination} from "./components/pagination.js";
 import {initSorting} from "./components/sorting.js";
 import {initFiltering} from "./components/filtering.js";
 import {initSearching} from "./components/searching.js";
-// @todo: подключение
 
 
-// Исходные данные используемые в render()
-const api = initData(sourceData);
-let indexes;
+const api = initData();
 
 /**
  * Сбор и обработка полей из таблицы
@@ -42,7 +37,6 @@ function collectState() {
 async function render(action) {
     let state = collectState(); // состояние полей из таблицы
     let query = {};
-    // @todo: использование
     query = applySearching(query, state, action);
     query = applyFiltering(query, state, action);
     query = applySorting(query, state, action);
@@ -60,7 +54,6 @@ const sampleTable = initTable({
     after: ['pagination']
 }, render);
 
-// @todo: инициализация
 const applySearching = initSearching('search');  // передаём имя поля search
 
 const {applyFiltering, updateIndexes} = initFiltering(sampleTable.filter.elements);
@@ -86,7 +79,7 @@ const appRoot = document.querySelector('#app');
 appRoot.appendChild(sampleTable.container);
 
 async function init() {
-    indexes = await api.getIndexes();
+    const indexes = await api.getIndexes();
 
     updateIndexes(sampleTable.filter.elements, {
         searchBySeller: indexes.sellers
